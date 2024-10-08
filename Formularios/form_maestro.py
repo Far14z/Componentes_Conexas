@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import font
-from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR_BACKGROUND, COLOR_BACKGROUND_IMAGENES, COLOR_BORDE_LOGO, COLOR_BORDE_BTN, COLOR_PANEL
+from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR_BACKGROUND, COLOR_BACKGROUND_IMAGENES, COLOR_BORDE_LOGO, COLOR_BORDE_BTN, COLOR_PANEL, COLOR_BTN_INSTRUCIONES, COLOR_BORDE_INSTRUCIONES
 import Util.util_ventana as util_ventana
 import Util.util_imagenes as util_imagenes
 from Formularios.form_Instruciones import Formulario_Instrucciones
+from Formularios.form_Tamaño import Formulario_Tamaño
 
 class Formulario_Inicio(tk.Tk):
     #Constructor de la clase
@@ -23,7 +24,7 @@ class Formulario_Inicio(tk.Tk):
         #Configuración de la ventana inicial
         self.title('Componentes Conexas')
         self.iconbitmap("./Imagenes/grafo.ico")
-        w, h = 900, 600
+        w, h = 800, 550
         util_ventana.centrar_ventana(self, w, h)
     
     def color_background(self):
@@ -59,8 +60,8 @@ class Formulario_Inicio(tk.Tk):
         #Panel para mostrar el grafo
         self.panel = tk.Canvas(
             self, 
-            width = 580, 
-            height = 250, 
+            width = 520,
+            height = 220,
             bg = COLOR_PANEL, 
             highlightbackground = COLOR_BORDE_BTN,
             highlightthickness = 2
@@ -68,10 +69,45 @@ class Formulario_Inicio(tk.Tk):
 
         #Mostrar texto en el panel
         self.panel.create_text(
-            110, 30, 
+            115, 30, 
             text = "Integrantes del grupo 1:", 
             font = ("Arial", 14,),
-            fill = "black"
+            fill = "black",
+        )
+
+        self.panel.create_text(
+            200, 60,
+            text = "1. Cheel Animaca, Nicolas - U20231D456", 
+            font = ("Arial", 14,),
+            fill = "black",
+        )
+
+        self.panel.create_text(
+            244, 90,
+            text = "2. Coronel Espinoza, Farid Sebastian - U202312508",
+            font = ("Arial", 14,),
+            fill = "black",
+        )
+
+        self.panel.create_text(
+            214, 120,
+            text = "3. Orejuela Lluncor, Gianpiere - U20191B010",
+            font = ("Arial", 14,),
+            fill = "black",
+        )
+
+        self.panel.create_text(
+            236, 150,
+            text = "4. Rodríguez Rodríguez, Luis Piero - U202311334",
+            font = ("Arial", 14,),
+            fill = "black",
+        )
+
+        self.panel.create_text(
+            247, 180,
+            text = "5. Valderrama Bautista, Oscar Enrique - U202312314",
+            font = ("Arial", 14,),
+            fill = "black",
         )
 
         self.panel.place(x = 150, y = 150)
@@ -82,9 +118,9 @@ class Formulario_Inicio(tk.Tk):
             self, 
             text = "!", 
             font = ("Arial", 9, "bold"),
-            bg = COLOR_BTN, 
+            bg = COLOR_BTN_INSTRUCIONES, 
             fg = "black", #Color de la letra
-            highlightbackground = COLOR_BORDE_BTN,
+            highlightbackground = COLOR_BTN_CONFIRMACION,
             highlightthickness = 5, #Tamaño del borde
             activebackground = COLOR_CURSOR_ENCIMA, #Color de fondo al pasar el cursor
             activeforeground = "black", #Color de la letra al pasar el cursor
@@ -92,7 +128,7 @@ class Formulario_Inicio(tk.Tk):
             command = self.abrir_instrucciones #Abrir Formulario Instrucciones
         )
 
-        self.btnInstrucciones.place(x = 840, y = 40)
+        self.btnInstrucciones.place(x = 740, y = 40)
         self.btnInstrucciones.config(width = 3, height = 1)
     
     def abrir_instrucciones(self):
@@ -116,10 +152,19 @@ class Formulario_Inicio(tk.Tk):
             activebackground = COLOR_CURSOR_ENCIMA, #Color de fondo al pasar el cursor
             activeforeground = "black", #Color de la letra al pasar el cursor
             relief = tk.FLAT, #Tipo de borde
+            command = self.abrir_inicio
         )
 
-        self.btnInicio.place(x = 30, y = 500)
+        self.btnInicio.place(x = 30, y = 450)
         self.btnInicio.config(width = 15, height = 1)
+
+    def abrir_inicio(self): 
+        #Método que abrirá el nuevo formulario
+        tamaño = Formulario_Tamaño()
+        self.withdraw()
+        tamaño.grab_set()
+        self.wait_window(tamaño)
+        self.deiconify()
 
     def btn_Salir(self):
         #Botón de inicio
@@ -137,7 +182,7 @@ class Formulario_Inicio(tk.Tk):
             command = self.salir #Función al hacer click
         )
 
-        self.btnSalir.place(x = 700, y = 500)
+        self.btnSalir.place(x = 600, y = 450)
         self.btnSalir.config(width = 15, height = 1)
 
     def salir(self, event = None):

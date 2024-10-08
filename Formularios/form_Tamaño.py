@@ -4,7 +4,7 @@ from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR
 import Util.util_ventana as util_ventana
 import Util.util_imagenes as util_imagenes
 
-class Formulario_Instrucciones(tk.Toplevel):
+class Formulario_Tamaño(tk.Toplevel):
     #Constructor de la clase
     def __init__(self):
         super().__init__()
@@ -12,7 +12,7 @@ class Formulario_Instrucciones(tk.Toplevel):
         
     def config_window(self):
         #Configuración de la ventana inicial
-        self.title('Componentes Conexas - Instruciones')
+        self.title('Componentes Conexas')
         self.iconbitmap("./Imagenes/grafo.ico")
         w, h = 900, 600
         util_ventana.centrar_ventana(self, w, h)
