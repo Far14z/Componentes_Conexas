@@ -1,10 +1,11 @@
 import tkinter as tk
-from tkinter import font
+from tkinter import font, messagebox
 from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR_BACKGROUND, COLOR_BACKGROUND_IMAGENES, COLOR_BORDE_LOGO, COLOR_BORDE_BTN, COLOR_PANEL, COLOR_BTN_INSTRUCIONES, COLOR_BORDE_INSTRUCIONES
+from PIL import Image, ImageTk
 import Util.util_ventana as util_ventana
 import Util.util_imagenes as util_imagenes
 from Formularios.form_Instruciones import Formulario_Instrucciones
-from Formularios.form_Tamaño import Formulario_Tamaño
+from Formularios.form_bienvenida import Formulario_Bienvenida
 
 class Formulario_Inicio(tk.Tk):
     #Constructor de la clase
@@ -113,23 +114,21 @@ class Formulario_Inicio(tk.Tk):
         self.panel.place(x = 150, y = 150)
 
     def btn_Instrucciones(self):
-        #Botón de instrucciones
+
+        img = Image.open(r"c:\Users\Admin\Documents\UPC- tareas\Matematica Computacional\TF_Componentes-Conexas\Imagenes\informacion.png")  # Asegúrate de que la imagen esté en la misma carpeta o especifica la ruta
+        img = img.resize((50, 50))
+        self.circulo_img = ImageTk.PhotoImage(img)
+
+        # Crear el botón con la imagen circular
         self.btnInstrucciones = tk.Button(
             self, 
-            text = "!", 
-            font = ("Arial", 9, "bold"),
-            bg = COLOR_BTN_INSTRUCIONES, 
-            fg = "black", #Color de la letra
-            highlightbackground = COLOR_BTN_CONFIRMACION,
-            highlightthickness = 5, #Tamaño del borde
-            activebackground = COLOR_CURSOR_ENCIMA, #Color de fondo al pasar el cursor
-            activeforeground = "black", #Color de la letra al pasar el cursor
-            relief = tk.FLAT, #Tipo de borde
-            command = self.abrir_instrucciones #Abrir Formulario Instrucciones
+            image=self.circulo_img,
+            command=self.abrir_instrucciones,
+            borderwidth=0  
         )
-
-        self.btnInstrucciones.place(x = 740, y = 40)
-        self.btnInstrucciones.config(width = 3, height = 1)
+        
+        self.btnInstrucciones.place(x=700, y=40)
+        #self.btnInstrucciones.config(width = 3, height = 1)
     
     def abrir_instrucciones(self):
         #Método que abrirá el nuevo formulario
@@ -160,10 +159,10 @@ class Formulario_Inicio(tk.Tk):
 
     def abrir_inicio(self): 
         #Método que abrirá el nuevo formulario
-        tamaño = Formulario_Tamaño()
+        bienvenida = Formulario_Bienvenida()
         self.withdraw()
-        tamaño.grab_set()
-        self.wait_window(tamaño)
+        bienvenida.grab_set()
+        self.wait_window(bienvenida)
         self.deiconify()
 
     def btn_Salir(self):
