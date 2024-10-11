@@ -9,6 +9,3 @@ class Controlador():
         
     def get_tamanoMatrizAdyacencia(self):
         return self.__tamanoMatrizAdyacencia
-        
-            
-                                    

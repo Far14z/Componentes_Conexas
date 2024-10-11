@@ -115,7 +115,7 @@ class Formulario_Inicio(tk.Tk):
 
     def btn_Instrucciones(self):
 
-        img = Image.open(r"c:\Users\Admin\Documents\UPC- tareas\Matematica Computacional\TF_Componentes-Conexas\Imagenes\informacion.png")  # Asegúrate de que la imagen esté en la misma carpeta o especifica la ruta
+        img = Image.open("Imagenes\informacion.png")  # Asegúrate de que la imagen esté en la misma carpeta o especifica la ruta
         img = img.resize((50, 50))
         self.circulo_img = ImageTk.PhotoImage(img)
 

@@ -3,9 +3,8 @@ from tkinter import font, messagebox
 from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR_BACKGROUND, COLOR_BACKGROUND_IMAGENES, COLOR_BORDE_LOGO, COLOR_BORDE_BTN, COLOR_PANEL, COLOR_BTN_INSTRUCIONES, COLOR_BORDE_INSTRUCIONES
 import Util.util_ventana as util_ventana
 import Util.util_imagenes as util_imagenes
-import controlador as c
+from controlador import Controlador
 from Formularios.form_IngresarElementos import Formulario_IngresarElementos
-from Formularios.form_MatrizDeAdyacencia import Formulario_MatrizDeAdyacencia
 
 class Formulario_Bienvenida(tk.Toplevel):
     
@@ -67,14 +66,18 @@ class Formulario_Bienvenida(tk.Toplevel):
         def validate_input(value_if_allowed):
             if value_if_allowed.isdigit() or value_if_allowed == "":
                 return True
-            else:
-                return False
+            if value_if_allowed == "" or (int(value_if_allowed) >= 8 and int(value_if_allowed) <= 16):
+                return True
+            return False
             
         vcmd = (self.register(validate_input), '%P')
         
-        self.entrada = tk.Spinbox(
+        self.entrada = tk.Spinbox (
             self,
-            bg="lightblue",
+            from_= 8,  #Valor mínimo
+            to = 16,    #Valor máximo
+            increment = 1,  #Incremento de 1 en 1
+            bg = "lightblue",
             font=("Arial", 15),
             validate="key",
             validatecommand=vcmd
@@ -123,34 +126,28 @@ class Formulario_Bienvenida(tk.Toplevel):
         if self.entrada.get() == "":
             messagebox.showwarning("Error", "Ingrese un tamaño para la matriz de adyacencia")
         else:
-            controller = c.Controlador()
-            controller.set_tamanoMatrizAdyacencia( int(self.entrada.get()) )
-            
-            opcion = messagebox.askquestion("Confirmacion", "Ingresar los elementos manualmente?")
-            
-            if opcion == "yes":
-                
-                ingresarElementos = Formulario_IngresarElementos()
-                self.withdraw()
-                ingresarElementos.grab_set()
-                self.wait_window(ingresarElementos)
-                self.deiconify()
-            else:
-                matrizDeAdyacencia = Formulario_MatrizDeAdyacencia()
-                self.withdraw()
-                matrizDeAdyacencia.grab_set()
-                self.wait_window(matrizDeAdyacencia)
-                self.deiconify()
-                
-            
-            
-            
-            
-            
-            
-    
-    
+            #Convierte el valor del Spinbox a un entero
+            tamano_matriz = int(self.entrada.get())
 
+            #Verifica si el tamaño de la matriz está en el rango deseado (8 a 16)
+            if tamano_matriz < 8 or tamano_matriz > 16:
+                messagebox.showwarning("Error", "El tamaño de la matriz debe estar entre 8 y 16")
+
+            else:
+                #Si la validación es exitosa, procede con la lógica del controlador
+                controller = Controlador()
+                controller.set_tamanoMatrizAdyacencia(tamano_matriz)
+            
+                opcion = messagebox.askquestion("Confirmacion", "¿Desea ingresar los elementos?")
+            
+                if opcion == "yes":
+                    ingresarElementos = Formulario_IngresarElementos(controller.get_tamanoMatrizAdyacencia())
+                    self.withdraw()
+                    ingresarElementos.grab_set()
+                    self.wait_window(ingresarElementos)
+                    self.deiconify()
+                
+            
 
 
 
