@@ -135,13 +135,13 @@ class Formulario_Bienvenida(tk.Toplevel):
 
             else:
                 #Si la validación es exitosa, procede con la lógica del controlador
-                controller = Controlador()
-                controller.set_tamanoMatrizAdyacencia(tamano_matriz)
+                control = Controlador()
+                control.set_tamanoMatrizAdyacencia(tamano_matriz)
             
                 opcion = messagebox.askquestion("Confirmacion", "¿Desea ingresar los elementos?")
             
                 if opcion == "yes":
-                    ingresarElementos = Formulario_IngresarElementos(controller.get_tamanoMatrizAdyacencia())
+                    ingresarElementos = Formulario_IngresarElementos(control.get_tamanoMatrizAdyacencia())
                     self.withdraw()
                     ingresarElementos.grab_set()
                     self.wait_window(ingresarElementos)
