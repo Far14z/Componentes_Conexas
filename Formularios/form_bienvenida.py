@@ -4,19 +4,25 @@ from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR
 import Util.util_ventana as util_ventana
 import Util.util_imagenes as util_imagenes
 from controlador import Controlador
+from PIL import Image, ImageTk
+from Util.util_imagenes import resourse_path
 from Formularios.form_IngresarElementos import Formulario_IngresarElementos
 
 class Formulario_Bienvenida(tk.Toplevel):
     
     def __init__(self):
         super().__init__()
-        self.logo = util_imagenes.leer_imagen("./Imagenes/UPC_logo.png", (80, 80))
+        self.logo = Image.open(resourse_path("./Imagenes/UPC_logo.png"))
+        self.logo = self.logo.resize((80,80))
+        self.logo = ImageTk.PhotoImage(self.logo)
         self.config_window()
+        self.color_background()
         self.colocar_Titulo()
         self.colocar_logo()
         self.mostrar_label()
         self.mostrar_spinbox()
         self.mostrar_botones()
+        self.resizable(0, 0)
         
     def colocar_Titulo(self):
 
@@ -36,6 +42,10 @@ class Formulario_Bienvenida(tk.Toplevel):
         self.iconbitmap("./Imagenes/grafo.ico")
         w, h = 715, 270
         util_ventana.centrar_ventana(self, w, h)
+        self.configure(bg= COLOR_BACKGROUND)
+
+    def color_background(self):
+        #Color de fondo de la ventana
         self.configure(bg= COLOR_BACKGROUND)
     
     def colocar_logo(self):

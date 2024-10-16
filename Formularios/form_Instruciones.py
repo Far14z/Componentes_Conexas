@@ -2,24 +2,28 @@ import tkinter as tk
 from tkinter import font
 from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR_BACKGROUND, COLOR_BACKGROUND_IMAGENES, COLOR_BORDE_LOGO, COLOR_BORDE_BTN, COLOR_PANEL, COLOR_BTN_INSTRUCIONES, COLOR_BORDE_INSTRUCIONES
 import Util.util_ventana as util_ventana
-import Util.util_imagenes as util_imagenes
+from PIL import Image, ImageTk
+from Util.util_imagenes import resourse_path
 
 class Formulario_Instrucciones(tk.Toplevel):
     #Constructor de la clase
     def __init__(self):
         super().__init__()
-        self.logo = util_imagenes.leer_imagen("./Imagenes/UPC_logo.png", (80, 80))
+        self.logo = Image.open(resourse_path("./Imagenes/UPC_logo.png"))
+        self.logo = self.logo.resize((80,80))
+        self.logo = ImageTk.PhotoImage(self.logo)
         self.config_window()
         self.colocar_Logo()
         self.colocar_Titulo()
         self.color_background()
         self.mostrar_parrafos()
         self.btn_aceptar()
+        self.resizable(0, 0)
         
     def config_window(self):
         #Configuración de la ventana inicial
         self.title('Componentes Conexas - Instruciones')
-        self.iconbitmap("./Imagenes/grafo.ico")
+        self.iconbitmap(resourse_path("./Imagenes/grafo.ico"))
         w, h = 820, 490
         util_ventana.centrar_ventana(self, w, h)
         
@@ -79,7 +83,7 @@ class Formulario_Instrucciones(tk.Toplevel):
         self.labelPaso1Desc = tk.Label(
             self,
             text="Genera una matriz de adyacencia de tamaño n x n con valores aleatorios\n"
-                 "o ingresados manualmente y agrega (si fuese necesario) el valor 1 en la diagonal de la matriz.",
+                "o ingresados manualmente y agrega (si fuese necesario) el valor 1 en la diagonal de la matriz.",
             font=("Arial", 13),
             bg=COLOR_BACKGROUND,
             justify="left",
@@ -118,8 +122,8 @@ class Formulario_Instrucciones(tk.Toplevel):
         self.labelPaso3Desc = tk.Label(
             self,
             text="Ordena las filas según el número de 1s (mayor a menor). Si hay 2 filas\n"
-                 "que tienen la misma cantidad de 1s, entonces se debe colocar primero aquella que tiene el 1 más\n"
-                 "cercano a la primera columna.",
+                "que tienen la misma cantidad de 1s, entonces se debe colocar primero aquella que tiene el 1 más\n"
+                "cercano a la primera columna.",
             font=("Arial", 13),
             bg=COLOR_BACKGROUND,
             justify="left",
@@ -139,7 +143,7 @@ class Formulario_Instrucciones(tk.Toplevel):
         self.labelPaso4Desc = tk.Label(
             self,
             text="Ordena las columnas de acuerdo al orden de las filas. Las componentes\n"
-                 "conexas serán aquellas que se formen con los bloques cuadrados diagonales formados por 1s.",
+                "conexas serán aquellas que se formen con los bloques cuadrados diagonales formados por 1s.",
             font=("Arial", 13),
             bg=COLOR_BACKGROUND,
             justify="left",

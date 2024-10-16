@@ -4,7 +4,8 @@ from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR
 from controlador import Controlador
 from Formularios.form_OrdenarFilas import Formulario_OrdenarFilas
 import Util.util_ventana as util_ventana
-import Util.util_imagenes as util_imagenes
+from PIL import Image, ImageTk
+from Util.util_imagenes import resourse_path
 
 class Formulario_MatrizDeCaminos(tk.Toplevel):
     #Constructor de la clase
@@ -15,7 +16,9 @@ class Formulario_MatrizDeCaminos(tk.Toplevel):
         self.matriz_paso1 = matriz_paso1
         self.filas_indices = filas_indices
         self.columnas_indices = columnas_indices
-        self.logo = util_imagenes.leer_imagen("./Imagenes/UPC_logo.png", (80, 80))
+        self.logo = Image.open(resourse_path("./Imagenes/UPC_logo.png"))
+        self.logo = self.logo.resize((80,80))
+        self.logo = ImageTk.PhotoImage(self.logo)
         self.config_window()
         self.colocar_Logo()
         self.colocar_Titulo()
@@ -23,11 +26,12 @@ class Formulario_MatrizDeCaminos(tk.Toplevel):
         self.algoritmo_warshall()
         self.imprimir_matriz()
         self.botones()
+        self.resizable(0, 0)
         
     def config_window(self):
         #Configuración de la ventana inicial
-        self.title('Matriz de Caminos - Paso 2')
-        self.iconbitmap("./Imagenes/grafo.ico")
+        self.title('Componentes Conexas - Paso 2')
+        self.iconbitmap(resourse_path("./Imagenes/grafo.ico"))
         w, h = (860 + self.tamano_matriz * 25), (380 + self.tamano_matriz * 30)  # Ajustar el tamaño dinámicamente
         util_ventana.centrar_ventana(self, w, h)
         
@@ -80,9 +84,9 @@ class Formulario_MatrizDeCaminos(tk.Toplevel):
             label = tk.Label(marco_matriz, text=index, font=("Arial", 12, "bold"), bg=COLOR_BACKGROUND)
             label.grid(row=0, column=j + 1, padx=15, pady=5)
 
-        # Imprimir la matriz de adyacencia
+        # Imprimir la matriz de caminos
         for i, fila in enumerate(self.matriz_caminos):
-            label = tk.Label(marco_matriz, text=self.filas_indices[i], font=("Arial", 12, "bold"), bg=COLOR_BACKGROUND)
+            label = tk.Label(marco_matriz, text=self.filas_indices[i] + 1, font=("Arial", 12, "bold"), bg=COLOR_BACKGROUND)
             label.grid(row=i + 1, column=0, padx=10, pady=5)
 
             for j, valor in enumerate(fila):

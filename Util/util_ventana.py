@@ -1,3 +1,4 @@
+#Centrar la pantalla del usuario
 def centrar_ventana(ventana, aplicacion_ancho, aplicacion_largo):
     pantalla_ancho = ventana.winfo_screenwidth()
     pantalla_largo = ventana.winfo_screenheight()

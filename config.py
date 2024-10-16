@@ -18,3 +18,4 @@ COLOR_BORDE_LOGO = "#9e9c9c"
 #Matriz
 COLOR_MATRIZ = "#e5e6e6"
 COLOR_BLANCO = "#ffffff"
+COLOR_NEGRITA = "#000000"
