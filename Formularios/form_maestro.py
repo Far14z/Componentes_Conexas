@@ -22,7 +22,6 @@ class Formulario_Inicio(tk.Tk):
         self.btn_Instrucciones()
         self.btn_Inicio()
         self.btn_Salir()
-        self.resizable(0, 0)
         
     def config_window(self):
         #Configuración de la ventana inicial
@@ -125,7 +124,7 @@ class Formulario_Inicio(tk.Tk):
 
     def btn_Instrucciones(self):
 
-        img = Image.open(resourse_path("Imagenes\informacion.png"))
+        img = Image.open(resourse_path(r"Imagenes\_informacion.png"))
         img = img.resize((50, 50))
         self.circulo_img = ImageTk.PhotoImage(img)
 
@@ -139,10 +138,10 @@ class Formulario_Inicio(tk.Tk):
         
         self.btnInstrucciones.place(x=700, y=40)
 
-    def abrir_inicio(self): 
+    def abrir_inicio(self):
         bienvenida = Formulario_Bienvenida()
-        self.withdraw()
         bienvenida.grab_set()
+        self.withdraw()
         self.wait_window(bienvenida)
         self.deiconify()
 

@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import font
+from tkinter import messagebox
 from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR_BACKGROUND, COLOR_BACKGROUND_IMAGENES, COLOR_BORDE_LOGO, COLOR_BORDE_BTN, COLOR_PANEL, COLOR_BTN_INSTRUCIONES, COLOR_BORDE_INSTRUCIONES
 import Util.util_ventana as util_ventana
 from PIL import Image, ImageTk
@@ -187,5 +188,3 @@ class Formulario_Instrucciones(tk.Toplevel):
         
     def aceptar(self, event = None):
         self.destroy()
-        
-        

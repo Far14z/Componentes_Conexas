@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import font
+from tkinter import messagebox
 from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR_BACKGROUND, COLOR_BACKGROUND_IMAGENES, COLOR_BORDE_LOGO, COLOR_BORDE_BTN, COLOR_PANEL, COLOR_BTN_INSTRUCIONES, COLOR_BORDE_INSTRUCIONES, COLOR_MATRIZ, COLOR_BLANCO
 from controlador import	Controlador, Guardar_MatrizAdyacencia
 from PIL import Image, ImageTk
@@ -103,10 +104,6 @@ class Formulario_Componentes_Conexas(tk.Toplevel):
 
             label_componente.place(x = 400 + self.tamano_matriz * 35, y=y_offset + (idx * 25))
 
-        #Mostrar los componentes conexas después de ejecutar el algoritmo
-        for idx, componente in enumerate(self.componentes_conexas):
-            print(f"Componente fuertemente conectado {idx + 1}: {componente}")
-
     def fuerte_conectar(self, v):
         self.indices[v] = self.indice
         self.lowlink[v] = self.indice
@@ -177,4 +174,3 @@ class Formulario_Componentes_Conexas(tk.Toplevel):
 
         self.boton_Anterior.place(x = 250 + self.tamano_matriz * 50, y = 270 + self.tamano_matriz * 30)
         self.boton_Anterior.config(width = 15, height = 1)
-        

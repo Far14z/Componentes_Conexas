@@ -1,15 +1,14 @@
 import tkinter as tk
+import os
 from tkinter import font, messagebox
 from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR_BACKGROUND, COLOR_BACKGROUND_IMAGENES, COLOR_BORDE_LOGO, COLOR_BORDE_BTN, COLOR_PANEL, COLOR_BTN_INSTRUCIONES, COLOR_BORDE_INSTRUCIONES
 import Util.util_ventana as util_ventana
-import Util.util_imagenes as util_imagenes
 from controlador import Controlador
 from PIL import Image, ImageTk
 from Util.util_imagenes import resourse_path
 from Formularios.form_IngresarElementos import Formulario_IngresarElementos
 
 class Formulario_Bienvenida(tk.Toplevel):
-    
     def __init__(self):
         super().__init__()
         self.logo = Image.open(resourse_path("./Imagenes/UPC_logo.png"))
@@ -23,9 +22,17 @@ class Formulario_Bienvenida(tk.Toplevel):
         self.mostrar_spinbox()
         self.mostrar_botones()
         self.resizable(0, 0)
-        
-    def colocar_Titulo(self):
+    
+    def config_window(self):
+        #Configuración de la ventana inicial
+        self.title('Componentes Conexas')
+        self.iconbitmap(resourse_path("./Imagenes/grafo.ico"))
+        w, h = 715, 270
+        util_ventana.centrar_ventana(self, w, h)
+        self.configure(bg= COLOR_BACKGROUND)
 
+            
+    def colocar_Titulo(self):
         self.labelTitulo = tk.Label(
             self, 
             text = "Bienvenido!",
@@ -35,19 +42,7 @@ class Formulario_Bienvenida(tk.Toplevel):
 
         self.labelTitulo.pack(side = tk.TOP, pady = 10)
         self.labelTitulo.place(x = 130, y = 45)
-    
-    def config_window(self):
-        #Configuración de la ventana inicial
-        self.title('Componentes Conexas')
-        self.iconbitmap("./Imagenes/grafo.ico")
-        w, h = 715, 270
-        util_ventana.centrar_ventana(self, w, h)
-        self.configure(bg= COLOR_BACKGROUND)
 
-    def color_background(self):
-        #Color de fondo de la ventana
-        self.configure(bg= COLOR_BACKGROUND)
-    
     def colocar_logo(self):
         
         self.labelLogo = tk.Label(
@@ -58,7 +53,11 @@ class Formulario_Bienvenida(tk.Toplevel):
             highlightthickness = 2
         )
 
-        self.labelLogo.place(x = 25, y = 20)    
+        self.labelLogo.place(x = 25, y = 20)   
+
+    def color_background(self):
+        #Color de fondo de la ventana
+        self.configure(bg= COLOR_BACKGROUND) 
     
     def mostrar_label(self):
         
@@ -156,11 +155,3 @@ class Formulario_Bienvenida(tk.Toplevel):
                     ingresarElementos.grab_set()
                     self.wait_window(ingresarElementos)
                     self.deiconify()
-                
-            
-
-
-
-
-
-

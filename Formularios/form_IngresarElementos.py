@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import font
+from tkinter import messagebox
 from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR_BACKGROUND, COLOR_BACKGROUND_IMAGENES, COLOR_BORDE_LOGO, COLOR_BORDE_BTN, COLOR_PANEL, COLOR_BTN_INSTRUCIONES, COLOR_BORDE_INSTRUCIONES
 import Util.util_ventana as util_ventana
 from Util.util_imagenes import resourse_path
@@ -131,6 +132,10 @@ class Formulario_IngresarElementos(tk.Toplevel):
         img2 = img2.resize((50,40))
         self.image_completar = ImageTk.PhotoImage(img2)
 
+        img3 = Image.open(resourse_path("./Imagenes/desechar.png"))
+        img3 = img3.resize((50,40))
+        self.image_desechar = ImageTk.PhotoImage(img3)
+
         self.boton_Completar = tk.Button(
             self,
             borderwidth=0,
@@ -145,13 +150,25 @@ class Formulario_IngresarElementos(tk.Toplevel):
             command=self.destroy
         )
 
+        self.boton_Desechar = tk.Button(
+            self,
+            borderwidth=0,
+            image=self.image_desechar,
+            command=self.elimar_valores
+        )
+
         self.boton_Completar.place(x = 530 + self.tamano_matriz * 30, y = 40)
         self.boton_Volver.place(x = 600 + self.tamano_matriz * 30, y = 40)
+        self.boton_Desechar.place(x = 460 + self.tamano_matriz * 30, y = 40)
     
     def completar_con_ceros(self):
         for entry in self.entries:
             if entry.get() == "":
                 entry.insert(0, "0")
+
+    def elimar_valores(self):
+        for entry in self.entries:
+            entry.delete(0, tk.END)
 
     def obtener_valores_Random(self):
         for entry in self.entries:
