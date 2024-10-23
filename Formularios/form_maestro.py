@@ -22,6 +22,7 @@ class Formulario_Inicio(tk.Tk):
         self.btn_Instrucciones()
         self.btn_Inicio()
         self.btn_Salir()
+        self.resizable(0, 0)
         
     def config_window(self):
         #Configuración de la ventana inicial

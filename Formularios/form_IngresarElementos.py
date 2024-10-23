@@ -7,7 +7,7 @@ from Util.util_imagenes import resourse_path
 import random
 import controlador as Control
 from PIL import Image, ImageTk
-from Formularios.form_MatrizDeAdyacencia import Formulario_MatrizDeAdyacencia
+from Formularios.form_MatrizAdyacencia import Formulario_MatrizAdyacencia
 
 class Formulario_IngresarElementos(tk.Toplevel):
     #Constructor de la clase
@@ -100,7 +100,7 @@ class Formulario_IngresarElementos(tk.Toplevel):
             activebackground = COLOR_CURSOR_ENCIMA,
             activeforeground = "black",
             relief = tk.FLAT,
-            command=self.Form_Paso1
+            command=self.Form_matrizAdyacencia
         )
 
         self.boton_Random = tk.Button(
@@ -200,12 +200,12 @@ class Formulario_IngresarElementos(tk.Toplevel):
         else:
             tk.messagebox.showerror("Error", "Todos los valores deben ser 0 o 1.")
     
-    def Form_Paso1(self):
+    def Form_matrizAdyacencia(self):
         if self.validar_matriz():
             self.guardar_matriz() 
             if hasattr(self, 'matriz_guardada'):  #Verificar que la matriz se ha guardado correctamente
                 Control.Guardar_MatrizAdyacencia().set_matrizAdyacencia(self.matriz_guardada)
-                paso1 = Formulario_MatrizDeAdyacencia(self.matriz_guardada,self.indices_filas_guardados,self.indices_columnas_guardados)
+                paso1 = Formulario_MatrizAdyacencia(self.matriz_guardada,self.indices_filas_guardados,self.indices_columnas_guardados)
                 self.withdraw()
                 self.withdraw()
                 paso1.grab_set()
