@@ -40,10 +40,6 @@ class Formulario_Componentes_Conexas(tk.Toplevel):
         self.botones()
         self.ordenar_columnas()
         self.imprimir_matriz()
-
-        print(self.filas_indices_ordenada)
-        print(self.columnas_indices_ordenada)
-
         self.resizable(0, 0)
         
     def config_window(self):
