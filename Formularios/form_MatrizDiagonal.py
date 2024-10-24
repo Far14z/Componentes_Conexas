@@ -2,24 +2,32 @@ import tkinter as tk
 from tkinter import font
 from tkinter import messagebox
 from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR_BACKGROUND, COLOR_BACKGROUND_IMAGENES, COLOR_BORDE_LOGO, COLOR_BORDE_BTN, COLOR_PANEL, COLOR_BTN_INSTRUCIONES, COLOR_BORDE_INSTRUCIONES, COLOR_MATRIZ, COLOR_BLANCO
-from controlador import Controlador
+from controlador import Controlador, Guardar_MatrizAdyacencia
 from PIL import Image, ImageTk
 import Util.util_ventana as util_ventana
 from Util.util_imagenes import resourse_path
 from Formularios.form_MatrizCaminos import Formulario_MatrizDeCaminos
+import copy
 
-class Formulario_MatrizDeAdyacencia(tk.Toplevel):
+class Formulario_Matrizdiagonal(tk.Toplevel):
     #Constructor de la clase
     def __init__(self, matriz_adyacencia, filas_indices, columnas_indices):
         super().__init__()
         self.control = Controlador()
         self.tamano_matriz = self.control.get_tamanoMatrizAdyacencia()
+        self.matriz_load = Guardar_MatrizAdyacencia()
+        self.matriz = self.matriz_load.get_matrizAdyacencia()
         self.matriz_adyacencia = matriz_adyacencia
         self.filas_indices = filas_indices
         self.columnas_indices = columnas_indices
         self.logo = Image.open(resourse_path("./Imagenes/UPC_logo.png"))
         self.logo = self.logo.resize((80,80))
         self.logo = ImageTk.PhotoImage(self.logo)
+
+        for fila in self.matriz:
+            print(fila)
+        print ("-------------------------------")
+        
         self.config_window()
         self.colocar_Logo()
         self.colocar_Titulo()
@@ -52,7 +60,7 @@ class Formulario_MatrizDeAdyacencia(tk.Toplevel):
 
         self.labelTitulo = tk.Label(
             self, 
-            text = "Matriz de adyacencia",
+            text = "Matriz de adyacencia - 1's en la diagonal",
             font = ("Arial", 20, "bold"), 
             bg = COLOR_BACKGROUND
         )
@@ -128,8 +136,7 @@ class Formulario_MatrizDeAdyacencia(tk.Toplevel):
         self.boton_Continuar.config(width = 15, height = 1)
         
     def Form_Paso2(self):
-        paso2 = Formulario_MatrizDeCaminos(self.matriz_paso1, self.filas_indices, self.columnas_indices)
-        self.withdraw()
+        paso2 = Formulario_MatrizDeCaminos(copy.deepcopy(self.matriz_paso1), copy.deepcopy(self.filas_indices), self.columnas_indices)
         self.withdraw()
         paso2.grab_set()
         self.wait_window(paso2)

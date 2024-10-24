@@ -7,7 +7,8 @@ from Util.util_imagenes import resourse_path
 import random
 import controlador as Control
 from PIL import Image, ImageTk
-from Formularios.form_MatrizDeAdyacencia import Formulario_MatrizDeAdyacencia
+from Formularios.form_MatrizAdyacencia import Formulario_MatrizAdyacencia
+import copy
 
 class Formulario_IngresarElementos(tk.Toplevel):
     #Constructor de la clase
@@ -27,6 +28,7 @@ class Formulario_IngresarElementos(tk.Toplevel):
         self.crear_matriz_adyacencia()
         self.botones_inferiores()
         self.botones_superiores()
+
         self.resizable(0, 0)
         
     def config_window(self):
@@ -205,8 +207,8 @@ class Formulario_IngresarElementos(tk.Toplevel):
             self.guardar_matriz() 
             if hasattr(self, 'matriz_guardada'):  #Verificar que la matriz se ha guardado correctamente
                 Control.Guardar_MatrizAdyacencia().set_matrizAdyacencia(self.matriz_guardada)
-                paso1 = Formulario_MatrizDeAdyacencia(self.matriz_guardada,self.indices_filas_guardados,self.indices_columnas_guardados)
-                self.withdraw()
+                Control.Guardar_IndiceFila().set_indicesFila(self.indices_filas_guardados)
+                paso1 = Formulario_MatrizAdyacencia(copy.deepcopy(self.matriz_guardada), copy.deepcopy(self.indices_filas_guardados),self.indices_columnas_guardados)
                 self.withdraw()
                 paso1.grab_set()
                 self.wait_window(paso1)

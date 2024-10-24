@@ -37,3 +37,22 @@ class Guardar_MatrizAdyacencia:
 
     def get_matrizAdyacencia(self):
         return self.matriz_adyacencia
+    
+class Guardar_IndiceFila:
+    _isntance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._isntance:
+            cls._isntance = super(Guardar_IndiceFila, cls).__new__(cls)
+        return cls._isntance
+    
+    def __init__(self):
+        if not hasattr(self, 'initialized'):
+            self.indices_fila = []
+            self.initialized = True
+
+    def set_indicesFila(self, indices):
+        self.indices_fila = indices
+
+    def get_indicesFila(self):
+        return self.indices_fila

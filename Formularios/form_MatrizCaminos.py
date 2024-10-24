@@ -2,11 +2,12 @@ import tkinter as tk
 from tkinter import font
 from tkinter import messagebox
 from config import COLOR_BTN, COLOR_BTN_CONFIRMACION, COLOR_CURSOR_ENCIMA, COLOR_BACKGROUND, COLOR_BACKGROUND_IMAGENES, COLOR_BORDE_LOGO, COLOR_BORDE_BTN, COLOR_PANEL, COLOR_BTN_INSTRUCIONES, COLOR_BORDE_INSTRUCIONES, COLOR_MATRIZ, COLOR_BLANCO
-from controlador import Controlador
+from controlador import Controlador, Guardar_MatrizAdyacencia
 from Formularios.form_OrdenarFilas import Formulario_OrdenarFilas
 import Util.util_ventana as util_ventana
 from PIL import Image, ImageTk
 from Util.util_imagenes import resourse_path
+import copy
 
 class Formulario_MatrizDeCaminos(tk.Toplevel):
     #Constructor de la clase
@@ -14,12 +15,15 @@ class Formulario_MatrizDeCaminos(tk.Toplevel):
         super().__init__()
         self.control = Controlador()
         self.tamano_matriz = self.control.get_tamanoMatrizAdyacencia()
+        self.matriz_load = Guardar_MatrizAdyacencia()
+        self.matriz = self.matriz_load.get_matrizAdyacencia()
         self.matriz_paso1 = matriz_paso1
         self.filas_indices = filas_indices
         self.columnas_indices = columnas_indices
         self.logo = Image.open(resourse_path("./Imagenes/UPC_logo.png"))
         self.logo = self.logo.resize((80,80))
         self.logo = ImageTk.PhotoImage(self.logo)
+
         self.config_window()
         self.colocar_Logo()
         self.colocar_Titulo()
@@ -131,8 +135,7 @@ class Formulario_MatrizDeCaminos(tk.Toplevel):
         self.boton_Continuar.config(width = 15, height = 1)
 
     def Form_Paso3(self):
-        paso3 = Formulario_OrdenarFilas(self.matriz_caminos, self.filas_indices, self.columnas_indices)
-        self.withdraw()
+        paso3 = Formulario_OrdenarFilas(copy.deepcopy(self.matriz_caminos), copy.deepcopy(self.filas_indices), self.columnas_indices)
         self.withdraw()
         paso3.grab_set()
         self.wait_window(paso3)
