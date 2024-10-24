@@ -41,10 +41,6 @@ class Formulario_Componentes_Conexas(tk.Toplevel):
         self.ordenar_columnas()
         self.imprimir_matriz()
 
-        for fila in self.matriz_load.get_matrizAdyacencia():
-            print(fila)
-        print("-------------------------------")
-
         print(self.filas_indices_ordenada)
         print(self.columnas_indices_ordenada)
 
