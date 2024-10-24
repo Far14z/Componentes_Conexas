@@ -30,7 +30,6 @@ class Formulario_Bienvenida(tk.Toplevel):
         w, h = 715, 270
         util_ventana.centrar_ventana(self, w, h)
         self.configure(bg= COLOR_BACKGROUND)
-
             
     def colocar_Titulo(self):
         self.labelTitulo = tk.Label(
