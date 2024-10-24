@@ -102,7 +102,7 @@ class Formulario_IngresarElementos(tk.Toplevel):
             activebackground = COLOR_CURSOR_ENCIMA,
             activeforeground = "black",
             relief = tk.FLAT,
-            command=self.Form_Paso1
+            command=self.Form_matrizAdyacencia
         )
 
         self.boton_Random = tk.Button(
@@ -202,7 +202,7 @@ class Formulario_IngresarElementos(tk.Toplevel):
         else:
             tk.messagebox.showerror("Error", "Todos los valores deben ser 0 o 1.")
     
-    def Form_Paso1(self):
+    def Form_matrizAdyacencia(self):
         if self.validar_matriz():
             self.guardar_matriz() 
             if hasattr(self, 'matriz_guardada'):  #Verificar que la matriz se ha guardado correctamente

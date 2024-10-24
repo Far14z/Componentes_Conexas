@@ -11,7 +11,8 @@ import copy
 import networkx as nx
 import matplotlib.pyplot as plt
 
-class Formulario_Matrizdiagonal(tk.Toplevel):
+class Formulario_MatrizPaso1(tk.Toplevel):
+
     #Constructor de la clase
     def __init__(self, matriz_adyacencia, filas_indices, columnas_indices):
         super().__init__()
